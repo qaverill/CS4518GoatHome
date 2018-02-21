@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".UserProfileEdit"></activity>
+        <activity android:name=".Ride"></activity>
     </application>
 
 </manifest>
