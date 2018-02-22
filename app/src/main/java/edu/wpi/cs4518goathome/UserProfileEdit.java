@@ -137,6 +137,7 @@ public class UserProfileEdit extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                if (user == null) return;
                 mUsersName.setText(user.name);
                 mMajor.setText(user.major);
                 mPhone.setText(user.phoneNumber);
