@@ -17,6 +17,12 @@ import android.widget.Toast;
 
 import android.support.v4.app.FragmentActivity;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -34,6 +40,10 @@ public class CreateTrip extends AppCompatActivity {
     private EditText chosenDate;
     private Calendar myCalendar;
     private DatePickerDialog.OnDateSetListener date;
+
+    private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+
+    private static final String TAG = "CreateTrip";
 
     //For submitting
     private Button createTrip;
@@ -54,7 +64,18 @@ public class CreateTrip extends AppCompatActivity {
         chosenDestination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Google places API
+
+                try {
+
+                    Intent intent =
+                            new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                                    .build(CreateTrip.this);
+                    startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+                } catch (GooglePlayServicesRepairableException e) {
+                    // TODO: Handle the error.
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    // TODO: Handle the error.
+                }
             }
         });
 
@@ -95,6 +116,26 @@ public class CreateTrip extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    // A place has been received; use requestCode to track the request.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                Log.i(TAG, "Place: " + place.getName());
+                chosenDestination.setText(place.getName());
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.i(TAG, status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
     }
 
     /**
