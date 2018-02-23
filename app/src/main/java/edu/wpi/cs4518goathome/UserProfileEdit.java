@@ -45,6 +45,8 @@ public class UserProfileEdit extends AppCompatActivity {
     private EditText mMajor;
     private EditText mPhone;
 
+    private Button viewYourTrips;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,15 @@ public class UserProfileEdit extends AppCompatActivity {
                 if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                 }
+            }
+        });
+
+        //View your trips button
+        viewYourTrips = findViewById(R.id.viewAndEditTripsButton);
+        viewYourTrips.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserProfileEdit.this, ViewYourTrips.class));
             }
         });
     }
