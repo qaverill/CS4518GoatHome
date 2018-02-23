@@ -1,5 +1,6 @@
 package edu.wpi.cs4518goathome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -40,5 +41,11 @@ public class ViewYourTrips extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null) {
+            // return to login activity if we are not logged in
+            startActivity(new Intent(this, LoginScreen.class));
+        } else {
+        }
     }
 }

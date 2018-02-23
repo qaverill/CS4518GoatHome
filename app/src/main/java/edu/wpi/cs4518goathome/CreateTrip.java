@@ -22,16 +22,26 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
+
+import edu.wpi.cs4518goathome.models.Trip;
 
 public class CreateTrip extends AppCompatActivity {
 
     private EditText chosenPrice;
     private EditText chosenTripInformation;
+
+    private LatLng latLong;
 
     //For picking the destination
     private EditText chosenDestination;
@@ -40,6 +50,8 @@ public class CreateTrip extends AppCompatActivity {
     private EditText chosenDate;
     private Calendar myCalendar;
     private DatePickerDialog.OnDateSetListener date;
+
+    private FirebaseDatabase mDatabase;
 
     private static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
@@ -58,6 +70,11 @@ public class CreateTrip extends AppCompatActivity {
 
         //Don't auto open keyboard for edit text areas
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        mDatabase = FirebaseDatabase.getInstance();
+
+        chosenPrice = findViewById(R.id.chosenPrice);
+        chosenTripInformation = findViewById(R.id.otherInformation);
 
         //Destination Picker
         chosenDestination = findViewById(R.id.chosenDestination);
@@ -118,6 +135,17 @@ public class CreateTrip extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            // return to login activity if we are not logged in
+            startActivity(new Intent(this, LoginScreen.class));
+        } else {
+        }
+    }
+
 
     // A place has been received; use requestCode to track the request.
     @Override
@@ -126,6 +154,7 @@ public class CreateTrip extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Place place = PlaceAutocomplete.getPlace(this, data);
                 Log.i(TAG, "Place: " + place.getName());
+                latLong = place.getLatLng();
                 chosenDestination.setText(place.getName());
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
@@ -170,7 +199,7 @@ public class CreateTrip extends AppCompatActivity {
      * View your trips activity
      */
     private void submitTrip(){
-        String destination = "destination"; //TODO: get the destination
+        String destination = chosenDestination.getText().toString(); //TODO: get the destination
         String date = chosenDate.getText().toString();
         String price = chosenPrice.getText().toString();
         String otherInformation = chosenTripInformation.getText().toString();
@@ -193,9 +222,12 @@ public class CreateTrip extends AppCompatActivity {
         if (price.length() == 0){
             price = "$0";
         }
-
+        double lat = latLong.latitude;
+        double longitude = latLong.longitude;
+        Trip trip = new Trip(destination, otherInformation, FirebaseAuth.getInstance().getCurrentUser().getUid(), lat, longitude, date, Double.parseDouble(price));
         //TODO: Send to database
-
+        DatabaseReference ref = mDatabase.getReference().child("/trips").child(UUID.randomUUID().toString());
+        ref.setValue(trip);
         //TODO: Launch View your Trips
         //startActivity(new Intent(this, ViewYourTrips.class));
     }

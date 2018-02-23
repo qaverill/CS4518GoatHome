@@ -108,7 +108,7 @@ public class LoginScreen extends AppCompatActivity {
     }
 
     private void redirectUser() {
-        startActivity(new Intent(this, UserProfileEdit.class));
+        startActivity(new Intent(this, CreateTrip.class));
     }
 
 
