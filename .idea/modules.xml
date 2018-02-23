@@ -3,8 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CS4518GoatHome.iml" filepath="$PROJECT_DIR$/CS4518GoatHome.iml" />
+      <module fileurl="file://C:\Users\Sam Huang\Desktop\Android Projects\Final Project\Attempt 2\CS4518GoatHome\CS4518GoatHome.iml" filepath="C:\Users\Sam Huang\Desktop\Android Projects\Final Project\Attempt 2\CS4518GoatHome\CS4518GoatHome.iml" />
+      <module fileurl="file://C:\Users\Quinn\AndroidStudioProjects\CS4518GoatHome\CS4518GoatHome.iml" filepath="C:\Users\Quinn\AndroidStudioProjects\CS4518GoatHome\CS4518GoatHome.iml" />
       <module fileurl="file://C:\Users\Kevin O'Brien\Documents\CS4518GoatHome\.idea\CS4518GoatHome.iml" filepath="C:\Users\Kevin O'Brien\Documents\CS4518GoatHome\.idea\CS4518GoatHome.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Quinn\AndroidStudioProjects\CS4518GoatHome\app\app.iml" filepath="C:\Users\Quinn\AndroidStudioProjects\CS4518GoatHome\app\app.iml" />
+      <module fileurl="file://C:\Users\Sam Huang\Desktop\Android Projects\Final Project\Attempt 2\CS4518GoatHome\app\app.iml" filepath="C:\Users\Sam Huang\Desktop\Android Projects\Final Project\Attempt 2\CS4518GoatHome\app\app.iml" />
     </modules>
   </component>
 </project>

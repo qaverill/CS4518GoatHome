@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.wpi.cs4518goathome">
 
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -51,6 +54,7 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".CreateTrip"></activity>
+        <activity android:name=".trip_view"></activity>
     </application>
 
 </manifest>
