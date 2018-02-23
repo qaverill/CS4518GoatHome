@@ -49,10 +49,10 @@
         android:text="Let people know about yourself!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.522" />
+        app:layout_constraintVertical_bias="0.618" />
 
     <ImageButton
         android:id="@+id/editProfilePicture"
@@ -73,7 +73,7 @@
         app:srcCompat="@drawable/edit_icon" />
 
     <LinearLayout
-        android:layout_width="77dp"
+        android:layout_width="139dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -82,17 +82,17 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.103"
+        app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.787">
+        app:layout_constraintVertical_bias="0.743">
 
         <TextView
             android:id="@+id/textViewMajor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="11dp"
-            android:text="Major:"
+            android:text="WPI Major:"
             android:textSize="16sp" />
 
         <TextView
@@ -100,23 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="11dp"
-            android:text="Phone:"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/textViewMajor3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="11dp"
-            android:text="Blah:"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/textViewMajor2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="11dp"
-            android:text="Blah"
+            android:text="Phone Number:"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -131,10 +115,10 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.732"
+        app:layout_constraintHorizontal_bias="0.828"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.779">
+        app:layout_constraintVertical_bias="0.744">
 
         <EditText
             android:id="@+id/usersMajor"
@@ -154,24 +138,6 @@
             android:inputType="textPersonName|phone"
             android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/usersMajor2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter blah here"
-            android:inputType="textPersonName"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/usersMajor4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter blah here"
-            android:inputType="textPersonName"
-            android:textSize="16sp" />
-
     </LinearLayout>
 
     <Button
@@ -182,12 +148,41 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Save"
+        android:text="Save profile information"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.936" />
+        app:layout_constraintVertical_bias="0.864" />
+
+    <Button
+        android:id="@+id/viewAndEditTripsButton"
+        android:layout_width="111dp"
+        android:layout_height="78dp"
+        android:layout_marginBottom="304dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="VIEW AND EDIT YOUR TRIPS"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="70dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="logout"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
