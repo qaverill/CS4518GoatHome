@@ -1,7 +1,11 @@
 package edu.wpi.cs4518goathome;
 
+import android.app.IntentService;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,6 +23,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        Button createTrip = (Button) findViewById(R.id.button3);
+        Button viewTrip = (Button) findViewById(R.id.Trips);
+        final Intent createIntent = new Intent(MapsActivity.this, CreateTrip.class);
+        final Intent viewIntent = new Intent(MapsActivity.this, ViewYourTrips.class);
+        createTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(createIntent);
+            }
+        });
+        viewTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(viewIntent);
+            }
+        });
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -38,7 +58,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         MarkerOptions sydneyMarker = new MarkerOptions().position(sydney).title("Marker in Sydney");

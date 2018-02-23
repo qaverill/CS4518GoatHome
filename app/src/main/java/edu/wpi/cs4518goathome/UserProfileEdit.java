@@ -73,7 +73,7 @@ public class UserProfileEdit extends AppCompatActivity {
                         new User(mUsersName.getText().toString(),
                                 mMajor.getText().toString(),
                                 mPhone.getText().toString()));
-                startActivity(new Intent(UserProfileEdit.this, Ride.class));
+                startActivity(new Intent(UserProfileEdit.this, MapsActivity.class));
             }
         });
 
