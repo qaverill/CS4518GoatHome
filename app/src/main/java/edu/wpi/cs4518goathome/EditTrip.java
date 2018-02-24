@@ -223,14 +223,9 @@ public class EditTrip extends AppCompatActivity {
 
         //Get today's date
         Calendar todayCalendar = Calendar.getInstance();
-        todayCalendar.set(Calendar.HOUR_OF_DAY, 0);
-        todayCalendar.set(Calendar.MINUTE, 0);
-        todayCalendar.set(Calendar.SECOND, 0);
-        todayCalendar.set(Calendar.MILLISECOND, 0);
-        Date todayDate = todayCalendar.getTime();
 
         //If the entered date is before today, show error
-        if (myCalendar.before(todayDate)){
+        if (myCalendar.before(todayCalendar)){
             Toast.makeText(EditTrip.this, "Date entered is in the past, date must be in the future!",
                     Toast.LENGTH_SHORT).show();
         }
@@ -267,8 +262,14 @@ public class EditTrip extends AppCompatActivity {
 
         //If there is no price entered, make it equal 0
         if (price.length() == 0){
-            price = "$0";
+            price = "0";
         }
+
+        //If no information was entered, pu placeholder message
+        if (otherInformation.length() == 0){
+            otherInformation = "There was no information about this trip entered by the driver";
+        }
+
         double lat = latLong.latitude;
         double longitude = latLong.longitude;
         Trip trip = new Trip(destination, otherInformation, FirebaseAuth.getInstance().getCurrentUser().getUid(), lat, longitude, date, Double.parseDouble(price));
