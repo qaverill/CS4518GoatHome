@@ -1,6 +1,7 @@
 package edu.wpi.cs4518goathome;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -46,12 +47,19 @@ public class UserProfileEdit extends AppCompatActivity {
     private EditText mPhone;
 
     private Button viewYourTrips;
+    private Button logoutButton;
+
+
+    byte[] picByteArray;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile_edit);
+        if(savedInstanceState != null) {
+            picByteArray = savedInstanceState.getByteArray("pic");
+        }
 
         mAuth = FirebaseAuth.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
@@ -97,6 +105,18 @@ public class UserProfileEdit extends AppCompatActivity {
                 startActivity(new Intent(UserProfileEdit.this, ViewYourTrips.class));
             }
         });
+
+        logoutButton = findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+                startActivity(new Intent(UserProfileEdit.this, LoginScreen.class));
+            }
+        });
+
+        updateUI(mAuth.getCurrentUser());
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
     }
 
     @Override
@@ -109,7 +129,15 @@ public class UserProfileEdit extends AppCompatActivity {
             startActivity(new Intent(this, LoginScreen.class));
         } else {
             // set listeners for new user data
-            updateUI(user);
+
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(picByteArray != null) {
+            outState.putByteArray("pic", picByteArray);
         }
     }
 
@@ -131,9 +159,9 @@ public class UserProfileEdit extends AppCompatActivity {
             // Upload the image to firebase
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
+            picByteArray = stream.toByteArray();
             StorageReference picRef = mStorageRef.child(mAuth.getCurrentUser().getUid() + "/profilePic.png");
-            picRef.putBytes(byteArray);
+            picRef.putBytes(picByteArray);
         }
     }
 
@@ -159,8 +187,15 @@ public class UserProfileEdit extends AppCompatActivity {
 
             }
         });
+        if(picByteArray == null) {
+            updateProfilePic();
+        } else {
+            mProfilePic.setImageBitmap(BitmapFactory.decodeByteArray(picByteArray, 0, picByteArray.length));
+        }
+    }
 
-        StorageReference picRef = mStorageRef.child(User.getProfilePic(user.getUid()));
+    private void updateProfilePic() {
+        StorageReference picRef = mStorageRef.child(User.getProfilePic(mAuth.getCurrentUser().getUid()));
         try {
             final File file = File.createTempFile("images", "png");
             picRef.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
