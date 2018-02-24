@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +34,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
 
+    private ImageButton settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        //Add the functionality to the settings button
+        settings = findViewById(R.id.gotoProfileEdit);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MapsActivity.this, UserProfileEdit.class));
+            }
+        });
     }
 
     @Override
@@ -70,19 +82,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         Button createTrip = (Button) findViewById(R.id.button3);
-        Button viewTrip = (Button) findViewById(R.id.Trips);
         final Intent createIntent = new Intent(MapsActivity.this, CreateTrip.class);
         final Intent viewIntent = new Intent(MapsActivity.this, ViewYourTrips.class);
         createTrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(createIntent);
-            }
-        });
-        viewTrip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(viewIntent);
             }
         });
         DatabaseReference dbRef = mDatabase.getReference("/trips");
