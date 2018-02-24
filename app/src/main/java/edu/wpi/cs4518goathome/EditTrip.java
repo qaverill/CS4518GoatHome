@@ -290,6 +290,7 @@ public class EditTrip extends AppCompatActivity {
      * Called when the user presses the delete trip button
      */
     private void deleteTrip(){
+        mDatabase.getReference("/trips").child(tripId).removeValue();
         //TODO: Remove the trip from the database
     }
 
