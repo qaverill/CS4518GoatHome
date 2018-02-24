@@ -19,119 +19,123 @@
         android:text="Create A Trip"
         android:textAlignment="center"
         android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/Labels"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="112dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="377dp"
+        android:layout_height="395dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Data"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.347">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="69dp">
 
         <TextView
             android:id="@+id/labelDestination"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:text="Destination:"
-            android:textAlignment="textEnd"
-            android:textSize="22sp" />
+            android:text="1) Destination"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="136dp"
+            tools:layout_editor_absoluteY="76dp" />
+
+        <EditText
+            android:id="@+id/chosenDestination"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="Tap to choose destination"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            tools:layout_editor_absoluteX="42dp"
+            tools:layout_editor_absoluteY="118dp" />
 
         <TextView
             android:id="@+id/labelDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:text="Date of Trip:"
-            android:textAlignment="textEnd"
-            android:textSize="22sp" />
+            android:text="2) Date of Trip"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="131dp"
+            tools:layout_editor_absoluteY="160dp" />
+
+        <EditText
+            android:id="@+id/chosenDate"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="Tap to choose date"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            tools:layout_editor_absoluteX="42dp"
+            tools:layout_editor_absoluteY="202dp" />
 
         <TextView
             android:id="@+id/labelCost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:text="Cost of Trip:"
-            android:textAlignment="textEnd"
-            android:textSize="22sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/Data"
-        android:layout_width="227dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.263">
-
-        <EditText
-            android:id="@+id/chosenDestination"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:clickable="true"
-            android:focusable="false"
-            android:ems="10"
-            android:hint="Click to choose destination"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/chosenDate"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:clickable="true"
-            android:focusable="false"
-            android:ems="10"
-            android:hint="Click to choose date"
-            android:inputType="textPersonName" />
+            android:text="3) Cost of Trip"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="131dp"
+            tools:layout_editor_absoluteY="244dp" />
 
         <EditText
             android:id="@+id/chosenPrice"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter price here"
-            android:inputType="textPersonName" />
+            android:hint="Enter price here (optional)"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            tools:layout_editor_absoluteX="42dp"
+            tools:layout_editor_absoluteY="286dp" />
+
+        <TextView
+            android:id="@+id/labelOtherInformation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:text="4) Other Information:"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/otherInformation"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Enter any other information you feel the rider should know here (optional)"
+            android:inputType="textMultiLine"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/createTrip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelOtherInformation"
+            app:layout_constraintVertical_bias="1.0" />
 
     </LinearLayout>
-
-    <EditText
-        android:id="@+id/otherInformation"
-        android:layout_width="306dp"
-        android:layout_height="197dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        android:ems="10"
-        android:hint="Enter any other information you feel the rider should know here"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/createTrip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15"
-        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/createTrip"
@@ -139,23 +143,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="36dp"
+        android:background="@color/grey"
         android:text="Create Trip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="264dp"
-        android:text="Other Information:"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/cancel"
@@ -165,6 +156,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@color/grey"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/createTrip"
