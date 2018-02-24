@@ -66,7 +66,7 @@ public class LoginScreen extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user != null) {
-            redirectUser();
+            redirectUserToMap();
         }
     }
 
@@ -78,7 +78,7 @@ public class LoginScreen extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.d(KEY, "Login successful!");
-                    redirectUser();
+                    redirectUserToMap();
                 } else {
                     Log.d(KEY, "Login failed!", task.getException());
                     Toast.makeText(LoginScreen.this, "Authentication Failed!",
@@ -97,7 +97,7 @@ public class LoginScreen extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.d(KEY, "Login successful!");
-                    redirectUser();
+                    redirectUserToProfile();
                 } else {
                     Log.d(KEY, "Login failed!", task.getException());
                     Toast.makeText(LoginScreen.this, "Authentication Failed!",
@@ -107,8 +107,12 @@ public class LoginScreen extends AppCompatActivity {
         });
     }
 
-    private void redirectUser() {
+    private void redirectUserToProfile() {
         startActivity(new Intent(this, UserProfileEdit.class));
+    }
+
+    private void redirectUserToMap() {
+        startActivity(new Intent(this, MapsActivity.class));
     }
 
 

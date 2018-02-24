@@ -291,7 +291,8 @@ public class EditTrip extends AppCompatActivity {
      */
     private void deleteTrip(){
         mDatabase.getReference("/trips").child(tripId).removeValue();
-        //TODO: Remove the trip from the database
+
+        startActivity(new Intent(this, ViewYourTrips.class));
     }
 
 }
