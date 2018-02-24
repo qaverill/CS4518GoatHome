@@ -12,6 +12,7 @@ public class Trip {
     public double longitude;
     public String date;
     public double cost;
+    private String uid;
 
     public Trip(String name, String desc, String driver, double latitude, double longitude, String date, double cost) {
         this.name = name;
@@ -23,4 +24,16 @@ public class Trip {
         this.cost = cost;
     }
     public Trip() {}
+
+    public String toString() {
+        return name + " " + date;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getUid() {
+        return uid;
+    }
 }
