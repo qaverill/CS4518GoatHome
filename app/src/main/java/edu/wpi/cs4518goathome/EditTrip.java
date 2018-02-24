@@ -5,6 +5,7 @@ package edu.wpi.cs4518goathome;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.renderscript.Sampler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,8 +26,11 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -57,6 +61,8 @@ public class EditTrip extends AppCompatActivity {
 
     private static final String TAG = "CreateTrip";
 
+    public static final String EXTRA_TRIP_ID = "TripId";
+
     //For submitting
     private Button createTrip;
 
@@ -66,10 +72,12 @@ public class EditTrip extends AppCompatActivity {
     //For deleteing trip
     private Button delete;
 
+    private String tripId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_trip);
+        setContentView(R.layout.activity_edit_trip);
 
         //Don't auto open keyboard for edit text areas
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -144,6 +152,33 @@ public class EditTrip extends AppCompatActivity {
                 deleteTrip();
             }
         });
+
+
+        tripId = getIntent().getStringExtra(EXTRA_TRIP_ID);
+        if (tripId != null) {
+        } else {
+            //TODO: do something if extra isn't provided
+        }
+
+        DatabaseReference dbRef = mDatabase.getReference("/trips").child(tripId);
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Trip trip = dataSnapshot.getValue(Trip.class);
+                latLong = new LatLng(trip.latitude, trip.longitude);
+                chosenDate.setText(trip.date);
+                chosenPrice.setText(String.valueOf(trip.cost));
+                chosenDestination.setText(trip.name);
+                chosenTripInformation.setText(trip.desc);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        dbRef.addListenerForSingleValueEvent(listener);
 
     }
 
@@ -238,7 +273,7 @@ public class EditTrip extends AppCompatActivity {
         double longitude = latLong.longitude;
         Trip trip = new Trip(destination, otherInformation, FirebaseAuth.getInstance().getCurrentUser().getUid(), lat, longitude, date, Double.parseDouble(price));
         //TODO: Send to database
-        DatabaseReference ref = mDatabase.getReference().child("/trips").child(UUID.randomUUID().toString());
+        DatabaseReference ref = mDatabase.getReference().child("/trips").child(tripId);
         ref.setValue(trip);
         //TODO: Launch View your Trips
         //startActivity(new Intent(this, ViewYourTrips.class));
