@@ -35,6 +35,7 @@ public class ViewYourTrips extends AppCompatActivity {
 
     private ListView mTripList;
     private Button mAddATrip;
+    private Button mReturnToMap;
 
     private ArrayList<Trip> trips;
 
@@ -49,11 +50,19 @@ public class ViewYourTrips extends AppCompatActivity {
 
         mTripList = findViewById(R.id.listView);
         mAddATrip = findViewById(R.id.button2);
+        mReturnToMap = findViewById(R.id.button3);
 
         mAddATrip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ViewYourTrips.this, CreateTrip.class));
+            }
+        });
+
+        mReturnToMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewYourTrips.this, MapsActivity.class));
             }
         });
 
