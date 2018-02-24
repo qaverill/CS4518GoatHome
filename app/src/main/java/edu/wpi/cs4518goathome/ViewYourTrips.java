@@ -66,6 +66,9 @@ public class ViewYourTrips extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Trip selectedTrip = trips.get(i);
                 Log.i("ViewYourTrips", "selected trip: " + selectedTrip.getUid() + selectedTrip.name + selectedTrip.latitude);
+                Intent intent = new Intent(ViewYourTrips.this, EditTrip.class);
+                intent.putExtra(EditTrip.EXTRA_TRIP_ID, selectedTrip.getUid());
+                startActivity(intent);
             }
         });
 
