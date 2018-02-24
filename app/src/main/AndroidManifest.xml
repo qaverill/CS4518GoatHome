@@ -55,7 +55,8 @@
         -->
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:hardwareAccelerated="true"/>
         <activity
             android:name=".CreateTrip"
             android:screenOrientation="portrait" />
