@@ -202,7 +202,7 @@ public class EditTrip extends AppCompatActivity {
                 Place place = PlaceAutocomplete.getPlace(this, data);
                 Log.i(TAG, "Place: " + place.getName());
                 latLong = place.getLatLng();
-                chosenDestination.setText(place.getName());
+                chosenDestination.setText(place.getName() + ", " + place.getAddress());
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 // TODO: Handle the error.
