@@ -136,7 +136,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Paste a Spotify playlist URI here"
-            android:inputType="textPersonName|phone"
+            android:inputType="textUri"
             android:textAlignment="center"
             android:textSize="14sp" />
 

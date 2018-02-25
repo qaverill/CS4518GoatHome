@@ -273,11 +273,11 @@ public class EditTrip extends AppCompatActivity {
         double lat = latLong.latitude;
         double longitude = latLong.longitude;
         Trip trip = new Trip(destination, otherInformation, FirebaseAuth.getInstance().getCurrentUser().getUid(), lat, longitude, date, Double.parseDouble(price));
-        //TODO: Send to database
+
         DatabaseReference ref = mDatabase.getReference().child("/trips").child(tripId);
         ref.setValue(trip);
-        //TODO: Launch View your Trips
-        //startActivity(new Intent(this, ViewYourTrips.class));
+
+        startActivity(new Intent(this, ViewYourTrips.class));
     }
 
     /**
