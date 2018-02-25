@@ -155,7 +155,7 @@ public class CreateTrip extends AppCompatActivity {
                 Place place = PlaceAutocomplete.getPlace(this, data);
                 Log.i(TAG, "Place: " + place.getName());
                 latLong = place.getLatLng();
-                chosenDestination.setText(place.getName());
+                chosenDestination.setText(place.getName() + ", " + place.getAddress());
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(this, data);
                 // TODO: Handle the error.
@@ -226,6 +226,8 @@ public class CreateTrip extends AppCompatActivity {
         double lat = latLong.latitude;
         double longitude = latLong.longitude;
         Trip trip = new Trip(destination, otherInformation, FirebaseAuth.getInstance().getCurrentUser().getUid(), lat, longitude, date, Double.parseDouble(price));
+        Log.i("CreateTrip", trip.toString());
+        Log.i("CreateTrip", String.valueOf(trip.cost));
         //Send to database
         DatabaseReference ref = mDatabase.getReference().child("/trips").child(UUID.randomUUID().toString());
         ref.setValue(trip);
