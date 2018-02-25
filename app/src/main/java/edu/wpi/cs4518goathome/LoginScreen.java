@@ -92,6 +92,10 @@ public class LoginScreen extends AppCompatActivity {
     private void createUser(String email, String password) {
         Log.d(KEY, "createUser()" + email);
         if (!validateForm()) return;
+        if (!email.endsWith("wpi.edu")) {
+            Toast.makeText(LoginScreen.this, "Must use an @wpi.edu email address!", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -99,7 +103,9 @@ public class LoginScreen extends AppCompatActivity {
                     Log.d(KEY, "Login successful!");
                     redirectUserToProfile();
                 } else {
-                    Log.d(KEY, "Login failed!", task.getException());
+                    //Log.d(KEY, "Login failed!", task.getException());
+                    Log.i(KEY, task.getException().getMessage());
+                    Toast.makeText(LoginScreen.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     Toast.makeText(LoginScreen.this, "Authentication Failed!",
                             Toast.LENGTH_SHORT).show();
                 }
