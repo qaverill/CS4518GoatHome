@@ -18,6 +18,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.net.Uri;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +32,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
 
 import edu.wpi.cs4518goathome.models.Trip;
 import edu.wpi.cs4518goathome.models.User;
@@ -42,9 +44,12 @@ public class trip_view extends AppCompatActivity {
     private TextView mDriverName;
     private TextView mDriverMajor;
     private TextView mDriverPhone;
-    private Button mCallDriver;
+    private ImageButton mCallDriver;
+    private ImageButton mTextDriver;
+    private TextView mTripDate;
     private TextView mTripDestination;
     private TextView mTripDescription;
+    private TextView mTripPrice;
 
     private FirebaseDatabase mDatabase;
     private FirebaseStorage mStorage;
@@ -60,8 +65,25 @@ public class trip_view extends AppCompatActivity {
         mDriverMajor = findViewById(R.id.driverMajor);
         mDriverPhone = findViewById(R.id.driverPhoneNumber);
         mCallDriver = findViewById(R.id.callDriver);
+        mTextDriver = findViewById(R.id.textDriver);
+        mTripDate = findViewById(R.id.tripDate);
         mTripDestination = findViewById(R.id.tripDestination);
         mTripDescription = findViewById(R.id.tripDescription);
+        mTripPrice = findViewById(R.id.tripPrice);
+
+        mCallDriver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callDriver(mDriverPhone.getText().toString());
+            }
+        });
+
+        mTextDriver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textDriver(mDriverPhone.getText().toString());
+            }
+        });
 
         String tripId = getIntent().getStringExtra(EXTRA_TRIP_ID);
         if (tripId != null) {
@@ -99,13 +121,18 @@ public class trip_view extends AppCompatActivity {
 
             }
         };
+
+
         DatabaseReference tripRef = mDatabase.getReference("/trips").child(tripId);
         ValueEventListener tripListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Trip selectedTrip = dataSnapshot.getValue(Trip.class);
+                mTripDate.setText(selectedTrip.date);
                 mTripDestination.setText(selectedTrip.name);
                 mTripDescription.setText(selectedTrip.desc);
+                NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
+                mTripPrice.setText(currencyFormatter.format(selectedTrip.cost));
                 DatabaseReference driverRef = mDatabase.getReference("/users").child(selectedTrip.driver);
                 driverRef.addListenerForSingleValueEvent(driverListener);
             }
@@ -121,13 +148,24 @@ public class trip_view extends AppCompatActivity {
 
 
 
-    public void callDriver (Button callDriver) {
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:123456789"));
+    public void callDriver (String phoneNumber) {
+        //TODO: Call driver
+        //Intent callIntent = new Intent(Intent.ACTION_CALL);
+        //callIntent.setData(Uri.parse("tel:123456789"));
+
+        //This is just for testing
+        Toast.makeText(trip_view.this, "Calling driver " + phoneNumber,
+                Toast.LENGTH_SHORT).show();
 
     }
 
+    public void textDriver (String phoneNumber) {
+        //TODO: Text driver
+        //Intent callIntent = new Intent(Intent.ACTION_CALL);
+        //callIntent.setData(Uri.parse("tel:123456789"));
 
-
-
+        //This is just for testing
+        Toast.makeText(trip_view.this, "Texting driver " + phoneNumber,
+                Toast.LENGTH_SHORT).show();
+    }
 }
