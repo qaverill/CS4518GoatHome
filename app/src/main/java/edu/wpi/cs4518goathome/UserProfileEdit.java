@@ -45,6 +45,7 @@ public class UserProfileEdit extends AppCompatActivity {
     private ImageView mProfilePic;
     private EditText mMajor;
     private EditText mPhone;
+    private EditText mSpotify;
 
     private Button viewYourTrips;
     private Button logoutButton;
@@ -69,6 +70,8 @@ public class UserProfileEdit extends AppCompatActivity {
         mProfilePic = findViewById(R.id.profilePicture);
         mMajor = findViewById(R.id.usersMajor);
         mPhone = findViewById(R.id.usersPhone);
+        mSpotify = findViewById(R.id.userSpotify);
+
         Button mSaveButton = findViewById(R.id.Save);
 
         mSaveButton.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +83,8 @@ public class UserProfileEdit extends AppCompatActivity {
                 dbRef.setValue(
                         new User(mUsersName.getText().toString(),
                                 mMajor.getText().toString(),
-                                mPhone.getText().toString()));
+                                mPhone.getText().toString(),
+                                mSpotify.getText().toString()));
                 startActivity(new Intent(UserProfileEdit.this, MapsActivity.class));
             }
         });

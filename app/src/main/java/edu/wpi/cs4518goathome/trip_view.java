@@ -67,6 +67,8 @@ public class trip_view extends AppCompatActivity {
 
     private String phoneNumber;
 
+    private String spotifyLink;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,8 +103,15 @@ public class trip_view extends AppCompatActivity {
         spotify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse());
-                startActivity(browserIntent);
+                if (spotifyLink == null || spotifyLink.isEmpty()) {
+                    Toast.makeText(trip_view.this,
+                            "This driver didn't share a Spotify playlist.", Toast.LENGTH_SHORT)
+                            .show();
+                } else {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(spotifyLink));
+                    startActivity(browserIntent);
+                }
+
             }
         });
 
@@ -124,6 +133,7 @@ public class trip_view extends AppCompatActivity {
                 mDriverName.setText(driver.name);
                 mDriverMajor.setText(driver.major);
                 mDriverPhone.setText(driver.phoneNumber);
+                spotifyLink = driver.spotify;
                 phoneNumber = driver.phoneNumber;
                 StorageReference picRef = mStorageRef.child(User.getProfilePic(dataSnapshot.getKey()));
                 try {
