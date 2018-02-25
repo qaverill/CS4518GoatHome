@@ -1,8 +1,12 @@
 package edu.wpi.cs4518goathome;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -56,6 +60,11 @@ public class trip_view extends AppCompatActivity {
 
     public static final String EXTRA_TRIP_ID = "TripId";
 
+    public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 999;
+    public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 998;
+
+    private String phoneNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +111,7 @@ public class trip_view extends AppCompatActivity {
                 mDriverName.setText(driver.name);
                 mDriverMajor.setText(driver.major);
                 mDriverPhone.setText(driver.phoneNumber);
+                phoneNumber = driver.phoneNumber;
                 StorageReference picRef = mStorageRef.child(User.getProfilePic(dataSnapshot.getKey()));
                 try {
                     final File file = File.createTempFile("images", "png");
@@ -147,25 +157,77 @@ public class trip_view extends AppCompatActivity {
     }
 
 
+    public void callDriver(String phoneNumber) {
+        if (ContextCompat.checkSelfPermission(trip_view.this, Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
 
-    public void callDriver (String phoneNumber) {
-        //TODO: Call driver
-        //Intent callIntent = new Intent(Intent.ACTION_CALL);
-        //callIntent.setData(Uri.parse("tel:123456789"));
-
-        //This is just for testing
-        Toast.makeText(trip_view.this, "Calling driver " + phoneNumber,
-                Toast.LENGTH_SHORT).show();
-
+            if (ActivityCompat.shouldShowRequestPermissionRationale(trip_view.this,
+                    Manifest.permission.CALL_PHONE)) {
+                Toast.makeText(trip_view.this, "You have not given the app permission to make a call",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                ActivityCompat.requestPermissions(trip_view.this,
+                        new String[]{Manifest.permission.CALL_PHONE},
+                        MY_PERMISSIONS_REQUEST_CALL_PHONE);
+            }
+        }
     }
 
-    public void textDriver (String phoneNumber) {
-        //TODO: Text driver
-        //Intent callIntent = new Intent(Intent.ACTION_CALL);
-        //callIntent.setData(Uri.parse("tel:123456789"));
 
-        //This is just for testing
-        Toast.makeText(trip_view.this, "Texting driver " + phoneNumber,
-                Toast.LENGTH_SHORT).show();
+    public void textDriver(String phoneNumber) {
+        if (ContextCompat.checkSelfPermission(trip_view.this, Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(trip_view.this,
+                    Manifest.permission.SEND_SMS)) {
+                Toast.makeText(trip_view.this, "You have not given the app permission to send sms",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                ActivityCompat.requestPermissions(trip_view.this,
+                        new String[]{Manifest.permission.SEND_SMS},
+                        MY_PERMISSIONS_REQUEST_SEND_SMS);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CALL_PHONE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openPhone();
+                } else {
+                }
+                return;
+            }
+
+            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openSMS();
+                } else {
+                }
+                return;
+            }
+        }
+    }
+
+    public void openPhone() {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" + phoneNumber));
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        startActivity(callIntent);
+    }
+
+    public void openSMS(){
+        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+        sendIntent.setData(Uri.parse("sms:" + phoneNumber));
+        startActivity(sendIntent);
     }
 }
