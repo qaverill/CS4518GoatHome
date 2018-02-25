@@ -88,14 +88,14 @@ public class trip_view extends AppCompatActivity {
         mCallDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callDriver(mDriverPhone.getText().toString());
+                callDriver();
             }
         });
 
         mTextDriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textDriver(mDriverPhone.getText().toString());
+                textDriver();
             }
         });
 
@@ -134,7 +134,7 @@ public class trip_view extends AppCompatActivity {
                 mDriverMajor.setText(driver.major);
                 mDriverPhone.setText(driver.phoneNumber);
                 spotifyLink = driver.spotify;
-                phoneNumber = driver.phoneNumber;
+                phoneNumber = driver.phoneNumber.replaceAll("[\\s\\-()]", "");
                 StorageReference picRef = mStorageRef.child(User.getProfilePic(dataSnapshot.getKey()));
                 try {
                     final File file = File.createTempFile("images", "png");
@@ -180,7 +180,7 @@ public class trip_view extends AppCompatActivity {
     }
 
 
-    public void callDriver(String phoneNumber) {
+    public void callDriver() {
         if (ContextCompat.checkSelfPermission(trip_view.this, Manifest.permission.CALL_PHONE)
                 != PackageManager.PERMISSION_GRANTED) {
 
@@ -194,11 +194,13 @@ public class trip_view extends AppCompatActivity {
                         new String[]{Manifest.permission.CALL_PHONE},
                         MY_PERMISSIONS_REQUEST_CALL_PHONE);
             }
+        } else {
+            openPhone();
         }
     }
 
 
-    public void textDriver(String phoneNumber) {
+    public void textDriver() {
         if (ContextCompat.checkSelfPermission(trip_view.this, Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED) {
 
@@ -212,6 +214,8 @@ public class trip_view extends AppCompatActivity {
                         new String[]{Manifest.permission.SEND_SMS},
                         MY_PERMISSIONS_REQUEST_SEND_SMS);
             }
+        }else {
+            openSMS();
         }
     }
 
