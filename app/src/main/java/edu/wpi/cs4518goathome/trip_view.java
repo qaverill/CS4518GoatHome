@@ -55,6 +55,8 @@ public class trip_view extends AppCompatActivity {
     private TextView mTripDescription;
     private TextView mTripPrice;
 
+    private Button spotify;
+
     private FirebaseDatabase mDatabase;
     private FirebaseStorage mStorage;
 
@@ -79,6 +81,7 @@ public class trip_view extends AppCompatActivity {
         mTripDestination = findViewById(R.id.tripDestination);
         mTripDescription = findViewById(R.id.tripDescription);
         mTripPrice = findViewById(R.id.tripPrice);
+        spotify = findViewById(R.id.driverSpotify);
 
         mCallDriver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +96,16 @@ public class trip_view extends AppCompatActivity {
                 textDriver(mDriverPhone.getText().toString());
             }
         });
+
+        //TODO: add driver's spotify link in the uri parse
+        spotify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse());
+                startActivity(browserIntent);
+            }
+        });
+
 
         String tripId = getIntent().getStringExtra(EXTRA_TRIP_ID);
         if (tripId != null) {
