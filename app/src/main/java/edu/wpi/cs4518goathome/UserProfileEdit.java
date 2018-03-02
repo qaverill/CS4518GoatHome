@@ -184,6 +184,7 @@ public class UserProfileEdit extends AppCompatActivity {
                 mUsersName.setText(user.name);
                 mMajor.setText(user.major);
                 mPhone.setText(user.phoneNumber);
+                mSpotify.setText(user.spotify);
             }
 
             @Override
